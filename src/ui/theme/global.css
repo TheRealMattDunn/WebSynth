@@ -1,0 +1,70 @@
+@import './tokens.css';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+html {
+  /* Stop iOS inflating type in landscape, which breaks the fader grid. */
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font);
+  font-size: var(--font-size-body);
+  background: var(--paper);
+  color: var(--ink);
+  /* An instrument is not a document: rubber-band scrolling while playing a
+     glissando feels broken, and there is nothing to scroll to anyway. */
+  overscroll-behavior: none;
+  overflow: hidden;
+  /* Tabular figures everywhere, so readouts do not jitter as values change. */
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+}
+
+/*
+ * Anything the user plays or grabs. `touch-action: none` is what stops a drag
+ * on a fader from scrolling the page instead, and the callout/selection rules
+ * are what stop a long press on a pad popping a text-selection menu mid-performance.
+ */
+.t4-interactive {
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
