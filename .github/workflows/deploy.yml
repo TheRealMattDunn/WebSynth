@@ -37,10 +37,13 @@ jobs:
 
       - uses: actions/configure-pages@v5
         with:
-          # Turn Pages on via the API rather than requiring someone to find the
-          # setting first. Without this, the very first deploy of a fresh repo
-          # fails with "Get Pages site failed ... Not Found", which looks like a
-          # broken workflow when it is only an unset toggle.
+          # Asks the API to switch Pages on if it is not already. This succeeds
+          # only where the Actions token is allowed to create a Pages site; in
+          # this repository it is not ("Resource not accessible by integration"),
+          # so the FIRST deploy needs a repo admin to set
+          # Settings -> Pages -> Source: GitHub Actions by hand. Kept because it
+          # is a no-op once Pages is on, and it saves the manual step for anyone
+          # forking into an account where the token does have that permission.
           enablement: true
       - uses: actions/upload-pages-artifact@v3
         with:
